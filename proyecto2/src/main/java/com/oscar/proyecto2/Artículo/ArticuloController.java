@@ -34,7 +34,7 @@ public class ArticuloController {
      * @param fecha Fecha de publicación del artículo
      * @param tema Tema del artículo
      * @param editorial Editorial que gestiona el artículo
-     * @return
+     * @return Textos informativos para indicar si la operación ha sido exitosa o no
      */
     @PostMapping(path="/add") // Map ONLY POST Requests
     public @ResponseBody String addNewUser (@RequestParam String titulo, @RequestParam int idautor, @RequestParam Date fecha, @RequestParam String tema, @RequestParam String editorial) {
@@ -49,13 +49,13 @@ public class ArticuloController {
             a.setTema(tema);
             a.setEditorial(editorial);
             artRepository.save(a);
-            return "Saved";
+            return "Guardado";
         }
     }
 
     /**
      * Configura el select sobre la entidad
-     * @return
+     * @return Todos los artículos de la base de datos
      */
     @GetMapping(path="/all")
     public @ResponseBody Iterable<Articulo> getAllUsers() {
@@ -70,48 +70,60 @@ public class ArticuloController {
      * @param fecha Fecha de publicación del artículo
      * @param tema Tema del artículo
      * @param editorial Editorial que gestiona el artículo
-     * @return
+     * @return Textos informativos para indicar si la operación ha sido exitosa o no
      */
     @PostMapping(path="/editar")
     public @ResponseBody String updateUser(@RequestParam int id,@RequestParam(required = false) String titulo, @RequestParam(required = false) String autor, @RequestParam(required = false) Date fecha, @RequestParam(required = false) String tema, @RequestParam(required = false) String editorial) {
 
         if (!artRepository.existsById(id)) {
-            return "no encontrado";
+            return "Artículo no encontrado";
         }
 
         Articulo a = artRepository.findById(id).get();
 
-        if(titulo!=""){
+        if (titulo != null && !titulo.isEmpty()) {
             a.setTitulo(titulo);
-        } else if (autor!="") {
-            Escritor e= escritorRepository.findById(Integer.parseInt(autor)).orElse(null);
-            if(e==null){
-                return "No existe el escritor";
-            }else{
-                a.setIdautor(e);
+        }
+
+        if (autor != null && !autor.isEmpty()) {
+            try {
+                Escritor e = escritorRepository.findById(Integer.parseInt(autor)).orElse(null);
+                if (e == null) {
+                    return "No existe el escritor con ID: " + autor;
+                } else {
+                    a.setIdautor(e);
+                }
+            } catch (NumberFormatException ex) {
+                return "El ID del escritor debe ser un número válido";
             }
-        } else if (tema!="") {
+        }
+
+        if (tema != null && !tema.isEmpty()) {
             a.setTema(tema);
-        } else if (editorial!="") {
+        }
+
+        if (editorial != null && !editorial.isEmpty()) {
             a.setEditorial(editorial);
-        } else {
+        }
+
+        if (fecha != null) {
             a.setFechaPub(fecha);
         }
-        
+
         artRepository.save(a);
 
-        return "actualizado";
+        return "Actualizado";
     }
 
     /**
      * Configura el delete sobre la entidad
      * @param id Id del artículo a eliminar
-     * @return
+     * @return Textos informativos para indicar si la operación ha sido exitosa o no
      */
     @DeleteMapping(path="/eliminar")
     public @ResponseBody String deleteUser(@RequestParam int id) {
         if (!artRepository.existsById(id)) {
-            return "no encontrado";
+            return "Artículo no encontrado";
         }
 
         Articulo a = artRepository.findById(id).get();

@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
  * Entidad del autor
  * @author oscar
  */
-@Entity // Hibernate puede crear una tabla para esta entidad
+@Entity
 public class Escritor {
     //Atributos
     /**

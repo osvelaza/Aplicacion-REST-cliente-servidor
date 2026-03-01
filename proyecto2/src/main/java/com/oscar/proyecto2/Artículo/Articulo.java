@@ -27,6 +27,7 @@ public class Articulo {
 
     /**
      * Contiene el id del autor que escribe el artículo
+     * Cascadetype sirve para configurar que en caso de eliminar el artículo, también se debe eliminar el escritor
      */
     @OneToOne(cascade = CascadeType.REMOVE)
     private Escritor escritor;
