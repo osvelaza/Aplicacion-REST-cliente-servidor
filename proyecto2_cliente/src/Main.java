@@ -167,32 +167,33 @@ public class Main {
                                     case 1:
                                         System.out.println("Introduce el nuevo título del artículo");
                                         act=sc.nextLine();
-                                        peticionPost("http://localhost:12345/articulo/editar?id="+ideditar+"&titulo="+act+"&autor&fecha&tema&editorial");
+                                        peticionPost("http://localhost:12345/articulo/editar?id="+ideditar+"&titulo=");     //+act+"&autor&fecha&tema&editorial
 
                                         break;
                                     case 2:
                                         System.out.println("Introduce el nuevo id del autor del artículo");
+                                        peticionGet("http://localhost:12345/escritor/all");
                                         act=sc.nextLine();
-                                        peticionPost("http://localhost:12345/articulo/editar?id="+ideditar+"&titulo&autor="+act+"&fecha&tema&editorial");
+                                        peticionPost("http://localhost:12345/articulo/editar?id="+ideditar+"&autor="+act);     //+"&fecha&tema&editorial"
 
                                         break;
                                     case 3:
                                         System.out.println("Introduce la nueva fecha de publicación del artículo en formato dd/mm/aa");
                                         act=sc.nextLine();
                                         Date fecha=dateConverter(act);
-                                        peticionPost("http://localhost:12345/articulo/editar?id="+ideditar+"&titulo&autor&fecha="+fecha+"&tema&editorial");
+                                        peticionPost("http://localhost:12345/articulo/editar?id="+ideditar+"fecha="+fecha);      //"&titulo&autor&    "&tema&editorial"
 
                                         break;
                                     case 4:
                                         System.out.println("Introduce el nuevo tema del artículo");
                                         act=sc.nextLine();
-                                        peticionPost("http://localhost:12345/articulo/editar?id="+ideditar+"&titulo&autor&fecha&tema="+act+"&editorial");
+                                        peticionPost("http://localhost:12345/articulo/editar?id="+ideditar+"&tema="+act);  //&titulo&autor&fecha    +"&editorial"
 
                                         break;
                                     case 5:
                                         System.out.println("Introduce la nueva editorial del artículo");
                                         act=sc.nextLine();
-                                        peticionPost("http://localhost:12345/articulo/editar?id="+ideditar+"&titulo&autor&fecha&tema&editorial="+act);
+                                        peticionPost("http://localhost:12345/articulo/editar?id="+ideditar+"&editorial="+act);  //&titulo&autor&fecha&tema
 
                                         break;
                                 }
@@ -320,7 +321,6 @@ public class Main {
 
         System.out.println("1. Escritor");
         System.out.println("2. Articulo");
-        System.out.println("3. Salir");
         System.out.println();
 
         selector=sc.nextInt();
