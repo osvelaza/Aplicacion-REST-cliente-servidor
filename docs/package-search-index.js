@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"com.oscar.proyecto2"},{"l":"com.oscar.proyecto2.Artículo"},{"l":"com.oscar.proyecto2.escritor"}];updateSearchResults();
